@@ -1,12 +1,21 @@
-
+const userService=require('../Service/user-service')
 
 class UserController {
     
     async registration(req,res,nest){
         try {
+            const {email,password}=req.body
+            const userDate=await userService.registration(email,password)
+            if (userDate.emailExist){
+                res.json({message:userDate.emailExist})
+            }
+            res.cookie('refreshToken',userDate.refreshToken,{
+                maxAge:30*24*60*60*1000,httpOnly:true
+            })
+            res.json(userDate)
             
         }catch (e) {
-            
+            console.log(e)
         }
     }
     async login(req,res,nest){
