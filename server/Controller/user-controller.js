@@ -15,7 +15,7 @@ class UserController {
             res.json(userDate)
             
         }catch (e) {
-            console.log(e)
+            console.log('Ошибка при регистрации',e)
         }
     }
     async login(req,res,nest){
@@ -34,9 +34,11 @@ class UserController {
     }
     async activate(req,res,nest){
         try {
-
+            const activationLink=req.params.link
+            await userService.activate(activationLink)
+            return res.redirect(process.env.CLIENT_URL)
         }catch (e) {
-
+console.log('ошибка при активации',e)
         }
     }
     async refresh(req,res,nest){
