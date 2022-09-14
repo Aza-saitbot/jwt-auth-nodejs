@@ -1,0 +1,12 @@
+const ApiError=require('../exeptions/api-error')
+
+
+module.exports=function (err, req, res, nest) {
+
+    console.log('err Api-middleware',err)
+    if (err instanceof ApiError){
+        return res.status(err.status).json({message:err.message,errors:err.errors})
+    }
+
+    return res.status(500).json({message:'Непридвиденная ошибка'})
+}
