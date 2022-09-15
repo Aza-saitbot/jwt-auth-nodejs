@@ -8,6 +8,8 @@ class UserController {
         try {
             const {email,password}=req.body
 
+            console.log('BACKEND email,password',email,password)
+
             const errors=validationResult(req)
 
             if (!errors.isEmpty()){
